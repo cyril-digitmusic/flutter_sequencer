@@ -27,13 +27,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 33
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 24
 
         externalNativeBuild {
             cmake {
@@ -44,10 +44,11 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
-    ndkVersion "22.1.7171670"
+
+    ndkVersion "25.2.9519653"
     externalNativeBuild {
         cmake {
-            version "3.18.1"
+            version "3.22.1"
             path "CMakeLists.txt"
         }
     }
@@ -76,7 +77,8 @@ void cloneThirdPartyRepo(String name, String uri, String commit) {
 task cloneThirdPartyRepos {
     cloneThirdPartyRepo('oboe', 'https://github.com/google/oboe', '8740d0fc321a55489dbbf6067298201b7d2e106d')
     cloneThirdPartyRepo('TinySoundFont', 'https://github.com/schellingb/TinySoundFont.git', 'd21fe7b22c8c906e749e4be4bb389efc2e761964')
-    cloneThirdPartyRepo('sfizz', 'https://github.com/sfztools/sfizz.git', 'df95bb782f7c9070811a34aa324a48199cf93e19')
+    //cloneThirdPartyRepo('sfizz', 'https://github.com/sfztools/sfizz.git', 'df95bb782f7c9070811a34aa324a48199cf93e19')
+    cloneThirdPartyRepo('sfizz', 'https://github.com/sfztools/sfizz.git', '4174e8e00f998f4678547814c0108d74c210e9ad')
 }
 
 preBuild.dependsOn cloneThirdPartyRepos

@@ -10,6 +10,21 @@ oboe::DataCallbackResult AndroidEngine::onAudioReady(oboe::AudioStream *oboeStre
 }
 
 AndroidEngine::AndroidEngine(Dart_Port sampleRateCallbackPort) {
+    openStream();
+    callbackToDartInt32(sampleRateCallbackPort, mOutStream->getSampleRate());
+};
+
+void AndroidEngine::onErrorAfterClose(oboe::AudioStream *oboeStream, oboe::Result error) {
+    if (error == oboe::Result::ErrorDisconnected) {
+        mOutStream.reset();
+        openStream();
+        play();
+    } else {
+        LOGE("Stream error: %s", convertToText(error));
+    }
+}
+
+void AndroidEngine::openStream() {
     oboe::AudioStreamBuilder builder;
     builder.setSharingMode(oboe::SharingMode::Shared)
             ->setPerformanceMode(oboe::PerformanceMode::LowLatency)
@@ -21,8 +36,8 @@ AndroidEngine::AndroidEngine(Dart_Port sampleRateCallbackPort) {
 
     mSchedulerMixer.setChannelCount(mOutStream->getChannelCount());
 
-    callbackToDartInt32(sampleRateCallbackPort, mOutStream->getSampleRate());
-};
+    //callbackToDartInt32(sampleRateCallbackPort, mOutStream->getSampleRate());
+}
 
 AndroidEngine::~AndroidEngine() {
     mSchedulerMixer.pause();

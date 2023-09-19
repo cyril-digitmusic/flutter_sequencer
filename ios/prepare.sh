@@ -15,7 +15,8 @@ fi
 if [ ! -d sfizz ]; then
     git clone https://github.com/sfztools/sfizz.git
     cd sfizz
-    git checkout df95bb782f7c9070811a34aa324a48199cf93e19
+    #git checkout df95bb782f7c9070811a34aa324a48199cf93e19
+    git checkout 4174e8e00f998f4678547814c0108d74c210e9ad
     git submodule update --init --recursive
     cd ..
 fi
