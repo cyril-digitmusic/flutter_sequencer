@@ -3,9 +3,7 @@
 
 oboe::DataCallbackResult AndroidEngine::onAudioReady(oboe::AudioStream *oboeStream, void *audioData, int32_t numFrames) {
     float* outputBuffer = static_cast<float *>(audioData);
-
     mSchedulerMixer.renderAudio(outputBuffer, numFrames);
-
     return oboe::DataCallbackResult::Continue;
 }
 
@@ -27,15 +25,16 @@ void AndroidEngine::onErrorAfterClose(oboe::AudioStream *oboeStream, oboe::Resul
 void AndroidEngine::openStream() {
     oboe::AudioStreamBuilder builder;
     builder.setSharingMode(oboe::SharingMode::Shared)
+            ->setDirection(oboe::Direction::Output)
             ->setPerformanceMode(oboe::PerformanceMode::LowLatency)
-            ->setChannelCount(oboe::ChannelCount::Stereo)
+            ->setChannelCount(oboe::ChannelCount::Mono)
             ->setSampleRate(kSampleRate)
             ->setFormat(oboe::AudioFormat::Float)
             ->setCallback(this)
-            ->openManagedStream(mOutStream);
+            ->setErrorCallback(this)
+            ->openStream(mOutStream);
 
     mSchedulerMixer.setChannelCount(mOutStream->getChannelCount());
-
     //callbackToDartInt32(sampleRateCallbackPort, mOutStream->getSampleRate());
 }
 
@@ -68,8 +67,8 @@ void AndroidEngine::play() {
     auto streamState = mOutStream->getState();
 
     // Don't request start if stream is already starting or started
-    if (streamState != oboe::StreamState(3)
-        && streamState != oboe::StreamState(4)) {
+        if (streamState != oboe::StreamState::Started
+            && streamState != oboe::StreamState::Starting) {
         oboe::Result result = mOutStream->requestStart();
 
         if (result != oboe::Result::OK){

@@ -25,7 +25,8 @@ public:
 
     Mixer mSchedulerMixer;
 private:
-    oboe::ManagedStream mOutStream;
+    //oboe::ManagedStream mOutStream;
+    std::shared_ptr<oboe::AudioStream> mOutStream;
 
     static int constexpr kSampleRate = 44100;
 };

@@ -65,12 +65,14 @@ public:
         auto channel = status & 0x0F;
         auto statusCode = status >> 4;
 
+        tsf_channel_set_presetindex(mTsf, channel,presetIndex);
+
         if (statusCode == 0x9) {
             // Note On
-            tsf_note_on(mTsf, presetIndex, data1, data2 / 255.0);
+            tsf_channel_note_on(mTsf, channel, data1, (float)(data2 / 255.0));
         } else if (statusCode == 0x8) {
             // Note Off
-            tsf_note_off(mTsf, presetIndex, data1);
+            tsf_channel_note_off(mTsf, channel, data1);
         } else if (statusCode == 0xB) {
             // CC
             tsf_channel_midi_control(mTsf, channel, data1, data2);

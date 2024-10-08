@@ -3,7 +3,6 @@ package com.michaeljperri.flutter_sequencer
 import android.content.Context
 import android.content.res.AssetManager;
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall

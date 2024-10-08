@@ -13,8 +13,7 @@
 #include "../Utils/OptionArray.h"
 #include "../Utils/Logging.h"
 
-constexpr int32_t kBufferSize = 320*10;  // Temporary buffer is used for mixing
-//constexpr int32_t kBufferSize = 192*10;  // Temporary buffer is used for mixing
+constexpr int32_t kBufferSize = 192*10;  // Temporary buffer is used for mixing
 constexpr uint8_t kMaxTracks = 100;
 
 /**
