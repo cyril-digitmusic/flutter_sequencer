@@ -97,7 +97,7 @@ void cloneThirdPartyRepo(String name, String uri, String commit) {
 //cloneThirdPartyRepo('sfizz', 'https://github.com/sfztools/sfizz.git', '0d10306120037ce049a7699f9eaa5314d5b888f8')
 task cloneThirdPartyRepos {
     cloneThirdPartyRepo('oboe', 'https://github.com/google/oboe', '7ff668a6917d6f4d91e5886a07e941684f2235cb')
-    cloneThirdPartyRepo('TinySoundFont', 'https://github.com/nwhitehead/TinySoundFont', '5ac1ca9d71bce94ee97dddc42b3b195f05a01778')
+    cloneThirdPartyRepo('TinySoundFont', 'https://github.com/digitaudiotechnology/TinySoundFont', '5ac1ca9d71bce94ee97dddc42b3b195f05a01778')
     cloneThirdPartyRepo('sfizz', 'https://github.com/sfztools/sfizz.git', '342cd99dd9eec2cab8f750db23f32f77492177df')
 }
 
